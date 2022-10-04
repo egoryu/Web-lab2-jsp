@@ -24,10 +24,10 @@ public class AreaCheckServlet extends HttpServlet {
         try {
             long startTime = System.nanoTime();
             ResultList results;
-            if(request.getSession().getAttribute("results") == null) results = new ResultList();
+            if (request.getSession().getAttribute("results") == null) results = new ResultList();
             else results = (ResultList) request.getSession().getAttribute("results");
 
-            if(isValid(request.getParameter("x"), request.getParameter("y"), request.getParameter("r"))) {
+            if (isValid(request.getParameter("x"), request.getParameter("y"), request.getParameter("r"))) {
                 Result newResult = getResult(
                         request.getParameter("x"),
                         request.getParameter("y"),
@@ -35,15 +35,12 @@ public class AreaCheckServlet extends HttpServlet {
                         startTime,
                         Long.parseLong(request.getParameter("timezone")));
                 results.addResult(newResult);
-            } else {
-                throw new IllegalArgumentException("Illegal Arguments!");
             }
 
             request.getSession().setAttribute("results", results);
 
         } catch (IllegalArgumentException e){
             response.setStatus(400);
-            request.setAttribute("errorMessage", "Error: " + e.getMessage());
         } finally {
             request.getRequestDispatcher("index.jsp").forward(request, response);
         }

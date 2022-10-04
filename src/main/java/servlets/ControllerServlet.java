@@ -16,7 +16,9 @@ public class ControllerServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("x") != null && request.getParameter("y") != null &&
+        if (request.getParameter("clear") != null && request.getParameter("clear").equals("true")) {
+            request.getRequestDispatcher("/clear").forward(request, response);
+        } else if (request.getParameter("x") != null && request.getParameter("y") != null &&
                 request.getParameter("r") != null) {
             request.getRequestDispatcher("/checkArea").forward(request, response);
         } else

@@ -52,7 +52,7 @@
                             Введите Y:
                         </td>
                         <td>
-                            <input id="y-textinput" type="text" maxlength="10" autocomplete="off" placeholder="-5..5" name="y" >
+                            <input id="y-textinput" type="text" maxlength="10" autocomplete="off" placeholder="(-5..5)" name="y" >
                         </td>
                     </tr>
                     <tr>
@@ -71,9 +71,11 @@
                     <tr>
                         <td>
                             <input id="hide_timezone" type="hidden" name="timezone" value="">
+                            <input id="hide_clear" type="hidden" name="clear" value="false">
                         </td>
                         <td>
                             <input class="button" type="submit" value="submit" id="send">
+                            <input class="button" type="submit" value="clear" id="clear">
                         </td>
                     </tr>
                     <tr>
@@ -122,7 +124,7 @@
         </td>
     </tr>
 </table>
-<script src="${pageContext.request.contextPath}/js/draw.js"></script>
 <script src="${pageContext.request.contextPath}/js/script.js"></script>
+<script src="${pageContext.request.contextPath}/js/draw.js"></script>
 </body>
 </html>

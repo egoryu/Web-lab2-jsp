@@ -122,14 +122,17 @@ $(function() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 
-    function drawPoint(x, y) {
+    function drawPoint(x, y, h) {
         clearCanvas();
         drawPlot();
 
         if (x > canvas.width || x < -canvas.width || y > canvas.height || y < -canvas.height) return;
 
         ctx.beginPath();
-        ctx.fillStyle = 'red';
+        if (h === 'true')
+            ctx.fillStyle = '#023602';
+        else
+            ctx.fillStyle = 'red';
         ctx.arc(x, y, 2, 0, 2 * Math.PI);
         ctx.fill();
     }
@@ -154,7 +157,7 @@ $(function() {
         if (yValue < Y_MIN) yValue = Y_MIN;
         else if (yValue > Y_MAX) yValue = Y_MAX;
 
-        drawPoint(nearestXValue * 150 / rval + 160, -(yValue / rval *  150 - 160));
+        drawPoint(nearestXValue * 150 / rval + 160, -(yValue / rval *  150 - 160), false);
 
         let xSelect = $('.x-checkbox:checked');
         xSelect.prop('checked', false);
@@ -162,14 +165,11 @@ $(function() {
         xSelect.prop('checked', true);
 
         $('#y-textinput').val(yValue.toString().substring(0, 10));
-
+        $('#send').click();
     });
 
     function start() {
         drawPlot();
-        let url = window.location.pathname;
-        if(url !== '/lab2/')
-            window.location.replace("/lab2/");
 
         const lastResult = document.querySelector('#result-table tr:last-child');
         if (lastResult) {
@@ -177,18 +177,20 @@ $(function() {
             let x = parseInt(row[0].innerText);
             let y = parseFloat(row[1].innerText);
             let r = parseInt(row[2].innerText);
+            let h = row[5].innerText;
 
             let xSelect = $('.x-checkbox:checked');
             xSelect.prop('checked', false);
             xSelect = $('.x-checkbox[value="' + x + '"]');
             xSelect.prop('checked', true);
 
-            $('#y-textinput').val(y.toString().substring(0, 10));
+            if (y !== null && y !== undefined && !isNaN(y))
+                $('#y-textinput').val(y.toString().substring(0, 10));
 
             let rSelect = $('.r-radio[value="' + r + '"]');
             rSelect.prop('checked', true);
 
-            drawPoint(x * 150 / r + 160, -(y / r * 150 - 160));
+            drawPoint(x * 150 / r + 160, -(y / r * 150 - 160), h);
         }
     }
 })

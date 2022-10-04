@@ -37,33 +37,26 @@ $(function() {
     function validateForm() {
         return validateX() & validateY() & validateR();
     }
-    
-    /*$('#former').submit(function(event) {
 
-
-        if (!validateForm()) {
-            $('#error').removeClass('invisible');
-            event.preventDefault();
-            return;
-        } else {
-            $('#error').addClass('invisible');
-        }
-
-        window.location.replace("./process?" + $(this).serialize() + '&time=' + new Date().getTimezoneOffset());
-    });*/
+    function start() {
+        let url = window.location.pathname;
+        if(url !== '/lab2/')
+            window.location.replace('/lab2/')
+    }
 
     $('#send').on('click', function(event) {
         if (!validateForm()) {
             event.preventDefault();
+            $('#error').removeClass('invisible');
         } else {
             $('#hide_timezone').val(new Date().getTimezoneOffset());
+            $('#error').addClass('invisible');
         }
     });
-    /*function start() {
-        let url = window.location.pathname;
-        if (url !== '/lab2/')
-            window.location.replace("/lab2/");
-    }
 
-    start();*/
+    $('#clear').on('click', function (event) {
+        $('#hide_clear').val('true');
+    })
+
+    start();
 });
